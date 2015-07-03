@@ -13,6 +13,8 @@ import com.facebook.FacebookSdk;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
 
+import org.sopt.appjam.went.Depth1.MainActivity;
+
 
 public class FacebookLoginActivity extends AppCompatActivity {
 

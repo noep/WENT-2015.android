@@ -20,6 +20,7 @@ import com.facebook.login.LoginManager;
 import com.facebook.login.widget.ProfilePictureView;
 
 import org.json.JSONObject;
+import org.sopt.appjam.went.Depth1.MainActivity;
 
 import static com.facebook.FacebookSdk.getApplicationContext;
 

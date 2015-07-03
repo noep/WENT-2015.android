@@ -59,12 +59,12 @@
             android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".Depth1.MainActivity"
             android:label="@string/title_activity_main" >
         </activity>
         <activity
-            android:name=".FirstDepthWriteActivity"
-            android:label="@string/title_activity_first_depth_write" >
+            android:name=".Depth1.AddActivity"
+            android:label="AddActivity" >
         </activity>
     </application>
 

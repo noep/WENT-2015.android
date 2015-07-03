@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#2196F3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    </android.support.v7.widget.Toolbar>
+
+    <FrameLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_margin="4dp"
+            card_view:cardCornerRadius="4dp" >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <ImageView
+                android:id="@+id/ImageView_pic"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="fitXY"
+                android:layout_alignParentLeft="true" />
+
+
+                <TextView
+                    android:id="@+id/textView_title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Add your title"
+                    android:textColor="#727272"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    android:layout_alignBaseline="@+id/textView_place"
+                    android:layout_alignBottom="@+id/textView_place"
+                    android:layout_alignEnd="@+id/textView_place" />
+
+
+                <TextView
+                    android:id="@+id/textView_place"
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:text="Pick your place"
+                    android:textColor="#A0A0A0"
+                    android:textSize="16dp"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/textView_title"
+                    android:layout_centerHorizontal="true" />
+
+
+
+        </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+    </FrameLayout>
+
+
+
+
+
+
+
+</LinearLayout>
