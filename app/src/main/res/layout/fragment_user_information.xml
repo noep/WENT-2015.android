@@ -1,0 +1,52 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.sopt.appjam.went.UserInformationFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--Facebook SDK에서 제공해주는 프로필사진 이미지뷰 위젯-->
+        <com.facebook.login.widget.ProfilePictureView
+            android:id="@+id/profilePictureView_photo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+        </com.facebook.login.widget.ProfilePictureView>
+
+        <TextView
+            android:id="@+id/textView_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Name"/>
+
+        <TextView
+            android:id="@+id/textView_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Link"/>
+        <TextView
+            android:id="@+id/textView_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Id"/>
+
+
+        <Button
+            android:id="@+id/button_logout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"/>
+
+        <Button
+            android:id="@+id/button_next"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="next"/>
+
+
+    </LinearLayout>
+
+</FrameLayout>
