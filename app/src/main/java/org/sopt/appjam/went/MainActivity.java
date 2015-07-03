@@ -30,6 +30,8 @@ import org.sopt.appjam.went.Model.ShopResult;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import retrofit.Callback;
 import retrofit.RetrofitError;
@@ -52,6 +54,10 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
 
     private static FloatingActionButton fab;
 
+
+    ShopResult shopResult;
+
+
     String facebookinfo;
 
 
@@ -73,8 +79,6 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
         getFacbookInfo();
 
 
-        //Need to Communication get List of Depth1 informations
-        getFromServer();
 
 
 
@@ -87,12 +91,21 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
 
         mapFragment = MapFragment.newInstance();
         viewFragment = FirstDepthViewFragment.newInstance();
+
+
+
+
+
+
         //infoFragment = UserInformationFragment.newInstance("str1","str2");
 
         // if insert viweFragment instead of mapFragment change fragment
         getFragmentManager().beginTransaction().replace(R.id.fragment_main, viewFragment).commit();
 
 
+
+        //Need to Communication get List of Depth1 informations
+        getFromServer();
 
 
     }
@@ -134,34 +147,22 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-
-
             case R.id.action_settings :
-
-
                 Toast.makeText(getApplicationContext(),"facebookfragment deprecated",Toast.LENGTH_SHORT).show();
-                //getFragmentManager().beginTransaction().replace(R.id.fragment_main, infoFragment).commit();
                 fab.setEnabled(false);
                 fab.setVisibility(View.GONE);
+                //getFragmentManager().beginTransaction().replace(R.id.fragment_main, infoFragment).commit();
                 //getFragmentManager().beginTransaction().replace(R.id.fragment_main, viewFragment).commit();
                 break;
-
         }
-
         return true;
     }
-
-
-
     /*
 
     need for facebook fragment
      */
     @Override
     public void onFragmentInteraction(Uri uri) {
-
-
-
     }
 
     private void setToolbar() {
@@ -195,22 +196,16 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
             });
         }
     } //method end
-
-
     //floating action button
     private void setFAB() {
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 /*
                 use flag to divide
-
                  */
                 //Toast.makeText(view.getContext(),"test"+flag ,Toast.LENGTH_SHORT).show();
-
-
                 Toast.makeText(view.getContext(),"test "+facebookinfo ,Toast.LENGTH_SHORT).show();
             }
         });
@@ -227,9 +222,9 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         callbackManager = CallbackManager.Factory.create();
-
         Bundle parameter = new Bundle();
         parameter.putString("field", "id,name,link");
+
         GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
             @Override
             public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
@@ -243,41 +238,38 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
                 facebook_id= (String)(jsonObject.optString("id"));
                 //facebook_name = jsonObject.optString("name");
                 //facebook_link = jsonObject.optString("link");
-
                 facebookinfo = facebook_id;// + " " + facebook_name + " " + facebook_link;
-
             }
         });
-
         request.setParameters(parameter);
         request.executeAsync();
     } // method end
 
 
     /**
-     * ¼­¹ö·ÎºÎÅÍ ÀÚ·á¸¦ °¡Á®¿À´Â ¸Ş¼ÒµåÀÔ´Ï´Ù!!
+     * ì„œë²„ë¡œë¶€í„° ìë£Œë¥¼ ê°€ì ¸ì˜¤ëŠ” ë©”ì†Œë“œì…ë‹ˆë‹¤!!
      */
 
     private void getFromServer() {
 
 
         /**
-         * EditText¿¡ ÀÔ·ÂÇÑ °ªÀ» ¹Ş¾Æ¿Í¼­ q¿¡ ÀúÀå!
+         * EditTextì— ì…ë ¥í•œ ê°’ì„ ë°›ì•„ì™€ì„œ qì— ì €ì¥!
          */
 
-        String q = "¸ÆºÏ";
+        String q = "starbucks";
 
         /**
-         * String q¿¡ °ªÀÌ ÀÖ´ÂÁö È®ÀÎ
+         * String qì— ê°’ì´ ìˆëŠ”ì§€ í™•ì¸
          */
         if (TextUtils.isEmpty(q))
             return;
 
 
         /**
-         * HashMap Å¬·¡½ºÀÇ °´Ã¼¿¡´Ù°¡ query·Î ³¯¸± º¯¼öµéÀ»
+         * HashMap í´ë˜ìŠ¤ì˜ ê°ì²´ì—ë‹¤ê°€ queryë¡œ ë‚ ë¦´ ë³€ìˆ˜ë“¤ì„
          *
-         * key - value ±¸Á¶·Î ³Ö¾îÁİ´Ï´Ù.
+         * key - value êµ¬ì¡°ë¡œ ë„£ì–´ì¤ë‹ˆë‹¤.
          */
 
         HashMap<String, String> parameters = new HashMap<>();
@@ -290,25 +282,25 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
 
 
         /**
-         * ºñµ¿±â Ã³¸®·Î ³×Æ®¿öÅ·À» ÇÕ´Ï´Ù.
+         * ë¹„ë™ê¸° ì²˜ë¦¬ë¡œ ë„¤íŠ¸ì›Œí‚¹ì„ í•©ë‹ˆë‹¤.
          *
-         * parameter·Î query¿¡ ´ëÇÑ ³»¿ëÀ» Àü´ŞÇÕ´Ï´Ù.(À§¿¡ ÇØ½Ã¸Ê)
+         * parameterë¡œ queryì— ëŒ€í•œ ë‚´ìš©ì„ ì „ë‹¬í•©ë‹ˆë‹¤.(ìœ„ì— í•´ì‹œë§µ)
          */
         networkService.getDataAsync(parameters, new Callback<Object>() {
 
 
             /**
              *
-             * @param o : ¼º°ø½Ã¿¡ ÀÀ´ä °á°ú·Î ¹ŞÀº °´Ã¼
-             * @param response : ¼º°ø½Ã¿¡ ¿À´Â response¶ó°í ÇÕ´Ï´Ù
+             * @param o : ì„±ê³µì‹œì— ì‘ë‹µ ê²°ê³¼ë¡œ ë°›ì€ ê°ì²´
+             * @param response : ì„±ê³µì‹œì— ì˜¤ëŠ” responseë¼ê³  í•©ë‹ˆë‹¤
              */
             @Override
             public void success(Object o, Response response) {
 
                 /**
-                 * ÆÄ½ÌÀ» À§ÇØ Gson °´Ã¼¸¦ ÀÌ¿ëÇÕ´Ï´Ù.
+                 * íŒŒì‹±ì„ ìœ„í•´ Gson ê°ì²´ë¥¼ ì´ìš©í•©ë‹ˆë‹¤.
                  *
-                 * ±× ÈÄ ¹ŞÀº °´Ã¼ o ¸¦ JsonÇüÅÂ·Î ¸¸µé¾î¼­ jsonStringÀ¸·Î ÀúÀå(String ÇüÅÂ·Î).
+                 * ê·¸ í›„ ë°›ì€ ê°ì²´ o ë¥¼ Jsoní˜•íƒœë¡œ ë§Œë“¤ì–´ì„œ jsonStringìœ¼ë¡œ ì €ì¥(String í˜•íƒœë¡œ).
                  */
 
                 Gson gson = new Gson();
@@ -318,16 +310,21 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
                 try {
 
                     JSONObject json = new JSONObject(jsonString);
-                    // jsonStringÀ» JSON°´Ã¼·Î ¸¸µé°í
+                    // jsonStringì„ JSONê°ì²´ë¡œ ë§Œë“¤ê³ 
 
                     json = json.getJSONObject("channel");
-                    // channel ¾È¿¡ ÀÖ´Â JSON °´Ã¼¸¦ °¡Á®¿É´Ï´Ù! => ´ÙÀ½ api ¿¹½Ã Âü°í
+                    // channel ì•ˆì— ìˆëŠ” JSON ê°ì²´ë¥¼ ê°€ì ¸ì˜µë‹ˆë‹¤! => ë‹¤ìŒ api ì˜ˆì‹œ ì°¸ê³ 
 
-                   // shopResult = gson.fromJson(json.toString(), ShopResult.class);
-                    // ±× ÈÄ jsonÀ» ¹®ÀÚ¿­ ÇüÅÂ·Î ¹Ş¾Æ¿Í¼­ GSONÀ» ÀÌ¿ëÇØ shopResult¿¡ ¸ÅÇÎÇØÁİ´Ï´Ù.
+                    shopResult = gson.fromJson(json.toString(), ShopResult.class);
+                    viewFragment.setResult(shopResult);
+
+                    //ë¡œê·¸ ë“¤ì–´ê°€ëŠ”ê±° í™•ì¸
+                    //Log.e(TAG,shopResult.item.get(0).title.toString());
+                    //Log.e(TAG,viewFragment.shopResult.item.get(0).title.toString());
+                    // ê·¸ í›„ jsonì„ ë¬¸ìì—´ í˜•íƒœë¡œ ë°›ì•„ì™€ì„œ GSONì„ ì´ìš©í•´ shopResultì— ë§¤í•‘í•´ì¤ë‹ˆë‹¤.
 
                     //customAdapter.setSource((ArrayList<ShopItem>) shopResult.item);
-                    // ±× °á°ú¿¡¼­ item¸¦ ¾î´ğÅÍ¸¦ ÅëÇØ¼­ ¸®½ºÆ®ºäÀÇ source·Î ÁöÁ¤ÇØÁİ´Ï´Ù.
+                    // ê·¸ ê²°ê³¼ì—ì„œ itemë¥¼ ì–´ëŒ‘í„°ë¥¼ í†µí•´ì„œ ë¦¬ìŠ¤íŠ¸ë·°ì˜ sourceë¡œ ì§€ì •í•´ì¤ë‹ˆë‹¤.
 
                 } catch (JSONException e) {
                     e.printStackTrace();

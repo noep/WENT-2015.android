@@ -33,7 +33,7 @@ import retrofit.client.Response;
  */
 
 
-//¿©±â¿¡ ÀÖ´Â Åë½Å ¸Ş¼Òµå¸¦ ¸ŞÀÎÀ¸·Î ¿Å±ä´Ù
+//ì—¬ê¸°ì— ìˆëŠ” í†µì‹  ë©”ì†Œë“œë¥¼ ë©”ì¸ìœ¼ë¡œ ì˜®ê¸´ë‹¤
 
 public class FirstDepthViewFragment extends Fragment{
 
@@ -45,10 +45,8 @@ public class FirstDepthViewFragment extends Fragment{
     instance statement
      */
     public static FirstDepthViewFragment newInstance() {
-
         FirstDepthViewFragment fragment = new FirstDepthViewFragment();
         return fragment;
-
     }
     /*
     Constructer with empty
@@ -81,21 +79,20 @@ public class FirstDepthViewFragment extends Fragment{
         networkService = AppController.getInstance().getNetworkService();
 
         initView(v);
-        viewListener();
+
         initModel();
+
+
+
         initController();
 
         return v;
     }
 
-    EditText editText_query;
-    Button button_search;
     ListView listView_result;
 
     private void initView(View view) {
 
-        editText_query = (EditText) view.findViewById(R.id.editText_query);
-        button_search = (Button) view.findViewById(R.id.button_search);
         listView_result = (ListView) view.findViewById(R.id.listView_fragment_view);
 
 
@@ -104,23 +101,7 @@ public class FirstDepthViewFragment extends Fragment{
 
 
     /**
-     * ¹öÆ°¿¡ ´ëÇÑ ¸®½º³Ê¸¦ µû·Î »©¼­ ±¸ÇöÇß½À´Ï´Ù.
-     */
-    private void viewListener() {
-
-        button_search.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                getFromServer();
-
-            }
-        });
-
-    }
-
-    /**
-     * ¸ğµ¨(ÀÚ·á)¿¡ ´ëÇÑ ±â¼ú ºÎºĞÀÔ´Ï´Ù.
+     * ëª¨ë¸(ìë£Œ)ì— ëŒ€í•œ ê¸°ìˆ  ë¶€ë¶„ì…ë‹ˆë‹¤.
      */
     ArrayList<ShopItem> arrayList_shopItem;
     ShopResult shopResult;
@@ -132,9 +113,9 @@ public class FirstDepthViewFragment extends Fragment{
     }
 
     /**
-     * ÄÁÆ®·Ñ·¯¿¡ ´ëÇÑ ºÎºĞÀÔ´Ï´Ù
+     * ì»¨íŠ¸ë¡¤ëŸ¬ì— ëŒ€í•œ ë¶€ë¶„ì…ë‹ˆë‹¤
      * <p/>
-     * CustomAdapter¿Í ListView¿¡´Ù°¡ adapter ¼³Á¤
+     * CustomAdapterì™€ ListViewì—ë‹¤ê°€ adapter ì„¤ì •
      */
 
     Depth1Adapter customAdapter;
@@ -142,103 +123,19 @@ public class FirstDepthViewFragment extends Fragment{
     private void initController() {
 
         customAdapter = new Depth1Adapter (this.getActivity());
-
         listView_result.setAdapter(customAdapter);
 
     }
 
-
-    /**
-     * ¼­¹ö·ÎºÎÅÍ ÀÚ·á¸¦ °¡Á®¿À´Â ¸Ş¼ÒµåÀÔ´Ï´Ù!!
-     */
-
-    private void getFromServer() {
-
-
-        /**
-         * EditText¿¡ ÀÔ·ÂÇÑ °ªÀ» ¹Ş¾Æ¿Í¼­ q¿¡ ÀúÀå!
-         */
-
-        String q = editText_query.getText().toString();
-
-        /**
-         * String q¿¡ °ªÀÌ ÀÖ´ÂÁö È®ÀÎ
-         */
-        if (TextUtils.isEmpty(q))
-            return;
-
-
-        /**
-         * HashMap Å¬·¡½ºÀÇ °´Ã¼¿¡´Ù°¡ query·Î ³¯¸± º¯¼öµéÀ»
-         *
-         * key - value ±¸Á¶·Î ³Ö¾îÁİ´Ï´Ù.
-         */
-
-        HashMap<String, String> parameters = new HashMap<>();
-
-        parameters.put("q", q);
-        parameters.put("result", "15");
-        parameters.put("pageno", "1");
-        parameters.put("sort", "pop");
-        parameters.put("output", "json");
-
-
-        /**
-         * ºñµ¿±â Ã³¸®·Î ³×Æ®¿öÅ·À» ÇÕ´Ï´Ù.
-         *
-         * parameter·Î query¿¡ ´ëÇÑ ³»¿ëÀ» Àü´ŞÇÕ´Ï´Ù.(À§¿¡ ÇØ½Ã¸Ê)
-         */
-        networkService.getDataAsync(parameters, new Callback<Object>() {
-
-
-            /**
-             *
-             * @param o : ¼º°ø½Ã¿¡ ÀÀ´ä °á°ú·Î ¹ŞÀº °´Ã¼
-             * @param response : ¼º°ø½Ã¿¡ ¿À´Â response¶ó°í ÇÕ´Ï´Ù
-             */
-            @Override
-            public void success(Object o, Response response) {
-
-                /**
-                 * ÆÄ½ÌÀ» À§ÇØ Gson °´Ã¼¸¦ ÀÌ¿ëÇÕ´Ï´Ù.
-                 *
-                 * ±× ÈÄ ¹ŞÀº °´Ã¼ o ¸¦ JsonÇüÅÂ·Î ¸¸µé¾î¼­ jsonStringÀ¸·Î ÀúÀå(String ÇüÅÂ·Î).
-                 */
-
-                Gson gson = new Gson();
-
-                String jsonString = gson.toJson(o);
-
-                try {
-
-                    JSONObject json = new JSONObject(jsonString);
-                    // jsonStringÀ» JSON°´Ã¼·Î ¸¸µé°í
-
-                    json = json.getJSONObject("channel");
-                    // channel ¾È¿¡ ÀÖ´Â JSON °´Ã¼¸¦ °¡Á®¿É´Ï´Ù! => ´ÙÀ½ api ¿¹½Ã Âü°í
-
-                    shopResult = gson.fromJson(json.toString(), ShopResult.class);
-                    // ±× ÈÄ jsonÀ» ¹®ÀÚ¿­ ÇüÅÂ·Î ¹Ş¾Æ¿Í¼­ GSONÀ» ÀÌ¿ëÇØ shopResult¿¡ ¸ÅÇÎÇØÁİ´Ï´Ù.
-
-                    customAdapter.setSource((ArrayList<ShopItem>) shopResult.item);
-                    // ±× °á°ú¿¡¼­ item¸¦ ¾î´ğÅÍ¸¦ ÅëÇØ¼­ ¸®½ºÆ®ºäÀÇ source·Î ÁöÁ¤ÇØÁİ´Ï´Ù.
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-
-            @Override
-            public void failure(RetrofitError error) {
-
-                Log.e("ERROR", "Error : " + error.getUrl() + ">>>>" + error.getMessage());
-
-            }
-
-        });
-
-
+    public void setResult(ShopResult res){
+        this.shopResult=res;
+        customAdapter.setSource((ArrayList<ShopItem>) shopResult.item);
     }
+
+
+
+
+
+
+
 }

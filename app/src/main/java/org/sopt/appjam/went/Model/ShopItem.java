@@ -7,9 +7,9 @@ package org.sopt.appjam.went.Model;
 /**
  * http://developers.daum.net/services/apis/shopping/search
  *
- * À§ ¸µÅ©¿¡ ÀÖ´Â ¹®¼­¿¡ item¿¡ ÇØ´çÇÏ´Â ÀÚ·áÇü°ú º¯¼ö¸í!
+ * ìœ„ ë§í¬ì— ìžˆëŠ” ë¬¸ì„œì— itemì— í•´ë‹¹í•˜ëŠ” ìžë£Œí˜•ê³¼ ë³€ìˆ˜ëª…!
  *
- * ¹®¼­¿Í ²À ¸ÂÃß¾îÁà¾ß(º¯¼ö¿Í ÇüÀ») ÆÄ½Ì¿¡ ¹®Á¦°¡ ¾ø½À´Ï´Ù.
+ * ë¬¸ì„œì™€ ê¼­ ë§žì¶”ì–´ì¤˜ì•¼(ë³€ìˆ˜ì™€ í˜•ì„) íŒŒì‹±ì— ë¬¸ì œê°€ ì—†ìŠµë‹ˆë‹¤.
  */
 public class ShopItem {
 

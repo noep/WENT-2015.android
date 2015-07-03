@@ -17,18 +17,18 @@ import retrofit.client.OkClient;
 
 
 /**
- * Application ÀüÃ¼¸¦ °ü¸®ÇÏ°Ô ÇØÁÖ´Â ClassÀÔ´Ï´Ù.
+ * Application ì „ì²´ë¥¼ ê´€ë¦¬í•˜ê²Œ í•´ì£¼ëŠ” Classì…ë‹ˆë‹¤.
  *
- * 4°³ÀÇ ÄÄÆ÷³ÍÆ®(Activity, CP, BR, Service)º¸´Ù ¸ÕÀú AppÀÌ ½ÇÇàµÉ ¶§ »ı¼ºÀÌµË´Ï´Ù.
+ * 4ê°œì˜ ì»´í¬ë„ŒíŠ¸(Activity, CP, BR, Service)ë³´ë‹¤ ë¨¼ì € Appì´ ì‹¤í–‰ë  ë•Œ ìƒì„±ì´ë©ë‹ˆë‹¤.
  */
 
 public class AppController extends Application {
 
 
     /**
-     * ÇöÀç ÀÌ AppController °´Ã¼¸¦ °¡¸®Å°´Â instance¶ó´Â º¯¼ö¿Í
+     * í˜„ì¬ ì´ AppController ê°ì²´ë¥¼ ê°€ë¦¬í‚¤ëŠ” instanceë¼ëŠ” ë³€ìˆ˜ì™€
      *
-     * ÀÎ½ºÅÏ½º¸¦ °¡Á®¿À±â À§ÇÑ getInstance() ¸Ş¼Òµå »ı¼º¼º
+     * ì¸ìŠ¤í„´ìŠ¤ë¥¼ ê°€ì ¸ì˜¤ê¸° ìœ„í•œ getInstance() ë©”ì†Œë“œ ìƒì„±ì„±
      *
      */
 
@@ -41,7 +41,7 @@ public class AppController extends Application {
 
 
     /**
-     * AppÀÌ »ı¼ºµÉ ¶§ ½ÇÇàµÇ´Â onCreate() ¸Ş¼Òµå
+     * Appì´ ìƒì„±ë  ë•Œ ì‹¤í–‰ë˜ëŠ” onCreate() ë©”ì†Œë“œ
      */
     public void onCreate(){
 
@@ -54,29 +54,29 @@ public class AppController extends Application {
 
 
     /**
-     * NetworkService¸¦ °¡¸®Å°´Â networkService¶ó´Â º¯¼ö¿Í
+     * NetworkServiceë¥¼ ê°€ë¦¬í‚¤ëŠ” networkServiceë¼ëŠ” ë³€ìˆ˜ì™€
      *
-     * ÀÎ½ºÅÏ½º¸¦ °¡Á®¿À±â À§ÇÑ getNetworkSercie() ¸Ş¼Òµå »ı¼º
+     * ì¸ìŠ¤í„´ìŠ¤ë¥¼ ê°€ì ¸ì˜¤ê¸° ìœ„í•œ getNetworkSercie() ë©”ì†Œë“œ ìƒì„±
      */
     private NetworkService networkService;
     public NetworkService getNetworkService() {return networkService;}
 
 
     /**
-     * ³×Æ®¿öÅ·À» À§ÇÑ NetworkService °´Ã¼¸¦ ¸¸µå´Â °úÁ¤ÀÔ´Ï´Ù.
+     * ë„¤íŠ¸ì›Œí‚¹ì„ ìœ„í•œ NetworkService ê°ì²´ë¥¼ ë§Œë“œëŠ” ê³¼ì •ì…ë‹ˆë‹¤.
      *
-     * RestAdapter¿Í BuilderÀÇ »ó¼¼ÇÑ ³»¿ëÀº Reference ÂüÁ¶
+     * RestAdapterì™€ Builderì˜ ìƒì„¸í•œ ë‚´ìš©ì€ Reference ì°¸ì¡°
      *
-     * Builder´Â RestAdapter¸¦ À§ÇÑ ±â¹İ Á¤º¸µéÀ» ¸¸µå´Â °´Ã¼ÀÌ¸ç
+     * BuilderëŠ” RestAdapterë¥¼ ìœ„í•œ ê¸°ë°˜ ì •ë³´ë“¤ì„ ë§Œë“œëŠ” ê°ì²´ì´ë©°
      *
-     * ¸¶Áö¸·¿¡ builder.build()¸¦ ÅëÇØ¼­ adapter °´Ã¼¸¦ ¸¸µé°í
+     * ë§ˆì§€ë§‰ì— builder.build()ë¥¼ í†µí•´ì„œ adapter ê°ì²´ë¥¼ ë§Œë“¤ê³ 
      *
-     * NetworkService¸¦ ¾î´ğÅÍ¸¦ ÅëÇØ¼­ ¸¸µì´Ï´Ù.
+     * NetworkServiceë¥¼ ì–´ëŒ‘í„°ë¥¼ í†µí•´ì„œ ë§Œë“­ë‹ˆë‹¤.
      */
     private void init(){
 
         /**
-         * ÄíÅ° °ªµéÀ» ÀúÀåÇÏ±â À§ÇÑ CookieManger¿Í Http Ã³¸® ¶óÀÌºê·¯¸®ÀÎ OkHttp¸¦ ÀÌ¿ëÇØ¼­ ÄíÅ°¸¦ ³²±â°Ô ÇÕ´Ï´Ù.
+         * ì¿ í‚¤ ê°’ë“¤ì„ ì €ì¥í•˜ê¸° ìœ„í•œ CookieMangerì™€ Http ì²˜ë¦¬ ë¼ì´ë¸ŒëŸ¬ë¦¬ì¸ OkHttpë¥¼ ì´ìš©í•´ì„œ ì¿ í‚¤ë¥¼ ë‚¨ê¸°ê²Œ í•©ë‹ˆë‹¤.
          */
 
         CookieManager cookieManager = new CookieManager();
@@ -93,7 +93,7 @@ public class AppController extends Application {
             @Override
             public void intercept(RequestFacade request) {
 
-                //³×Æ®¿öÅ©¸¦ ¿äÃ»ÇÏ±â Àü¿¡ ¸¶Áö¸· Ã³¸®¸£ ¿©±â¼­ ÇØÁÙ ¼ö ÀÖ´Ù°í ÇÕ´Ï´Ù Çì´õ³ª µîµî
+                //ë„¤íŠ¸ì›Œí¬ë¥¼ ìš”ì²­í•˜ê¸° ì „ì— ë§ˆì§€ë§‰ ì²˜ë¦¬ë¥´ ì—¬ê¸°ì„œ í•´ì¤„ ìˆ˜ ìˆë‹¤ê³  í•©ë‹ˆë‹¤ í—¤ë”ë‚˜ ë“±ë“±
 
                 request.addQueryParam("apikey", NetworkService.API_KEY);
 

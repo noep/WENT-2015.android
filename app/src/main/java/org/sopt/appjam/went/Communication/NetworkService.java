@@ -12,9 +12,9 @@ import retrofit.http.QueryMap;
 
 
 /**
- * Retrofit ¿¹½ÃÀÔ´Ï´Ù.
+ * Retrofit ì˜ˆì‹œìž…ë‹ˆë‹¤.
  *
- * ÀÚ¼¼ÇÑ ³»¿ëÀº ReferenceÀÎ ¾Æ·¡ ¸µÅ©¸¦ Âü°íÇÏ¼¼¿ä
+ * ìžì„¸í•œ ë‚´ìš©ì€ Referenceì¸ ì•„ëž˜ ë§í¬ë¥¼ ì°¸ê³ í•˜ì„¸ìš”
  *
  * http://square.github.io/retrofit/
  *
@@ -25,21 +25,21 @@ public interface NetworkService {
 
 
     /**
-     * ¾Æ·¡º¸ÀÌ´Â°Ç API_KEYÀÌ¸ç ÇöÀç´Â app¿¡ ³Ö¾îµÎ¾úÁö¸¸ º¸¾È»ó ´ëÃ¼·Î ¼­¹ö¸¦ ÅëÇØ¼­ ÀÎÁõÅ°¸¦ ¹Þ¾Æ°©´Ï´Ù
+     * ì•„ëž˜ë³´ì´ëŠ”ê±´ API_KEYì´ë©° í˜„ìž¬ëŠ” appì— ë„£ì–´ë‘ì—ˆì§€ë§Œ ë³´ì•ˆìƒ ëŒ€ì²´ë¡œ ì„œë²„ë¥¼ í†µí•´ì„œ ì¸ì¦í‚¤ë¥¼ ë°›ì•„ê°‘ë‹ˆë‹¤
      *
-     * Local Device -> Server(Get API_KEY) -> Request ÀÌ·±½ÄÀÔ´Ï´Ù.
+     * Local Device -> Server(Get API_KEY) -> Request ì´ëŸ°ì‹ìž…ë‹ˆë‹¤.
      */
 
-    //TODO : API_KEY ³Ö±â
+    //TODO : API_KEY ë„£ê¸°
 
     public static final String API_KEY = "4abc597591421f87535a41b5eef18c5e";
     //public static final String API_KEY = "91e048991a4e9d0779f8191a2aed49ae";
 
     /**
-     * GET ¹æ½ÄÀ¸·Î ¿äÃ»À» ÇÏ¸ç µ¿±âÈ­ ¹æ½ÄÀ¸·Î ÀÚ·á¸¦ ¿äÃ»ÇÕ´Ï´Ù.
+     * GET ë°©ì‹ìœ¼ë¡œ ìš”ì²­ì„ í•˜ë©° ë™ê¸°í™” ë°©ì‹ìœ¼ë¡œ ìžë£Œë¥¼ ìš”ì²­í•©ë‹ˆë‹¤.
      *
-     * @param parameters : Reference¸¦ Âü°íÇÏ¸é ³ª¿ÀÁö¸¸ Query°¡ ¿©·¯°³ÀÌ±â ¶§¹®¿¡ QueryMap Çü½ÄÀ¸·Î ¹Þ¾Æ¼­ ¿äÃ»!
-     * @return : °¡Á®¿Â °´Ã¼(ÀÀ´ä)¸¦ ¹ÝÈ¯ÇÕ´Ï´Ù.
+     * @param parameters : Referenceë¥¼ ì°¸ê³ í•˜ë©´ ë‚˜ì˜¤ì§€ë§Œ Queryê°€ ì—¬ëŸ¬ê°œì´ê¸° ë•Œë¬¸ì— QueryMap í˜•ì‹ìœ¼ë¡œ ë°›ì•„ì„œ ìš”ì²­!
+     * @return : ê°€ì ¸ì˜¨ ê°ì²´(ì‘ë‹µ)ë¥¼ ë°˜í™˜í•©ë‹ˆë‹¤.
      */
 
     @GET("/shopping/search")
@@ -47,12 +47,12 @@ public interface NetworkService {
 
 
     /**
-     * GET ¹æ½ÄÀ¸·Î ¿äÃ»À» ÇÏ¸ç ºñµ¿±â ¹æ½ÄÀ¸·Î ÀÚ·á¸¦ ¿äÃ»ÇÕ´Ï´Ù.
+     * GET ë°©ì‹ìœ¼ë¡œ ìš”ì²­ì„ í•˜ë©° ë¹„ë™ê¸° ë°©ì‹ìœ¼ë¡œ ìžë£Œë¥¼ ìš”ì²­í•©ë‹ˆë‹¤.
      *
-     * ¾Èµå·ÎÀÌµå¿¡¼­´Â ³»ºÎÀûÀ¸·Î ºñµ¿±âÈ­ ¹æ½ÄÀ¸·Î ÇÏµµ·Ï ±ÇÀåÇÏ¸ç ¼³°èµÇ¾ú´Ù°í ÇÕ´Ï´Ù.
+     * ì•ˆë“œë¡œì´ë“œì—ì„œëŠ” ë‚´ë¶€ì ìœ¼ë¡œ ë¹„ë™ê¸°í™” ë°©ì‹ìœ¼ë¡œ í•˜ë„ë¡ ê¶Œìž¥í•˜ë©° ì„¤ê³„ë˜ì—ˆë‹¤ê³  í•©ë‹ˆë‹¤.
      *
-     * @param parameters : Reference¸¦ Âü°íÇÏ¸é ³ª¿ÀÁö¸¸ Query°¡ ¿©·¯°³ÀÌ±â ¶§¹®¿¡ QueryMap Çü½ÄÀ¸·Î ¹Þ¾Æ¼­ ¿äÃ»!
-     * @param callback : Object¿¡ ÀÀ´ä°á°ú°¡ ¿À¸ç ±× °á°ú¸¦ °¡Áö°í CallbackÀ¸·Î Ã³¸®¸¦ ÇÕ´Ï´Ù.
+     * @param parameters : Referenceë¥¼ ì°¸ê³ í•˜ë©´ ë‚˜ì˜¤ì§€ë§Œ Queryê°€ ì—¬ëŸ¬ê°œì´ê¸° ë•Œë¬¸ì— QueryMap í˜•ì‹ìœ¼ë¡œ ë°›ì•„ì„œ ìš”ì²­!
+     * @param callback : Objectì— ì‘ë‹µê²°ê³¼ê°€ ì˜¤ë©° ê·¸ ê²°ê³¼ë¥¼ ê°€ì§€ê³  Callbackìœ¼ë¡œ ì²˜ë¦¬ë¥¼ í•©ë‹ˆë‹¤.
      */
 
 
