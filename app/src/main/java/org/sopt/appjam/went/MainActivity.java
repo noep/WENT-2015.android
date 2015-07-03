@@ -179,6 +179,10 @@ public class MainActivity extends AppCompatActivity  implements UserInformationF
                         toolbar.setTitle("List");
                         toolbar.setNavigationIcon(R.mipmap.ic_map);
                         getFragmentManager().beginTransaction().replace(R.id.fragment_main, viewFragment).commit();
+
+                        //TODO: 통신처리를 여러번 하게 되면 별로 무의미할수도 있다 잘 판단해봐
+                        getFromServer();
+
                         fab.setEnabled(true);
                         fab.setVisibility(View.VISIBLE);
                         flag = false;
