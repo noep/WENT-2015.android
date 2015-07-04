@@ -21,6 +21,16 @@ import retrofit.http.QueryMap;
  */
 
 
+/**
+ *
+ *
+ * 레트로핏의 사용 방법 api를 참고하여 아래 문서를 이해하시면 됩니다.
+ * @어노테이션을 이용하여 사용할 메소드를 GET POST PUT DELETE를 사용자 입맛대로 만들어 쓰면 됩니다
+ * 단 메소드를 정의할 때, 들어가는 인자의 수에 따라 동기식 처리, 비동기식 처리 등이 결정됩니다
+ *
+ */
+
+
 public interface NetworkService {
 
 
@@ -59,6 +69,14 @@ public interface NetworkService {
     @GET("/shopping/search")
    void getDataAsync(@QueryMap HashMap<String, String> parameters, Callback<Object> callback);
 
+
+    /**
+     * 메소드 오버로딩이 가능하다는 점을 이용해서 위의 메소드와 똑같은 형태이지만 인자가 다른 우리의 API용 메소드를 정의했습니다
+     * 여기에 long id부분에 페이스북 아이디가 들어가게 됩니다.
+     * 최종 url 형태는 ENDPOINT/insert/users/{user-id} 형태로 GET 메소드를 호출하게 됩니다
+     * 하니코드를 좀 더 파봐서 붙여햐 하는데, 아직 POST  메소드를 정의하지 않았고, 형태가 어떤 지만 일단 확인을 한 상태입니다.
+     *
+     */
     @GET("/insert/users/{user-id}")
     void getDataAsync(@Path("user-id") long id, Callback<Object> callback);
 

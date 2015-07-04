@@ -33,6 +33,18 @@ import static com.facebook.FacebookSdk.getApplicationContext;
  * Use the {@link UserInformationFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
+
+
+
+/**
+여기 안씁니다
+
+
+
+
+ */
+
+
 public class UserInformationFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER

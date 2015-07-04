@@ -16,6 +16,15 @@ import com.facebook.login.widget.LoginButton;
 import org.sopt.appjam.went.Depth1.MainActivity;
 
 
+
+
+/**
+처음에 로그인 위드 페이스북 버튼을 띄워주는 부분입니다. 통신 부분은 여기서 보실만한 게 별로 없습니다
+
+
+
+
+ */
 public class FacebookLoginActivity extends AppCompatActivity {
 
     CallbackManager callbackManager;

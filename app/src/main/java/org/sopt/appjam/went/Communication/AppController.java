@@ -22,6 +22,13 @@ import retrofit.client.OkClient;
  * 4개의 컴포넌트(Activity, CP, BR, Service)보다 먼저 App이 실행될 때 생성이됩니다.
  */
 
+
+/**
+
+여기는 클라쪽에서 처리하는 부분인데, 앞에 endpoint, 맨 마지막에 apikey를 추가하는 부분만 보시면 됩니다
+
+ */
+
 public class AppController extends Application {
 
 
@@ -34,6 +41,11 @@ public class AppController extends Application {
 
     private static AppController instance;
 
+
+    /**
+     *
+     * 이 위치에 나중에 최종 서버 주소+포트를 적어주면 됩니다.
+     */
     //private static final String ENDPOINT = "http://127.0.0.1:8000";
     private  static final String ENDPOINT = "https://apis.daum.net";
 
@@ -95,6 +107,8 @@ public class AppController extends Application {
 
                 //네트워크를 요청하기 전에 마지막 처리르 여기서 해줄 수 있다고 합니다 헤더나 등등
 
+
+                //네트웍 처리전 마지막 부분인데 나중에 밑의 메소드를 주석처리하면 됩니다.
                 request.addQueryParam("apikey", NetworkService.API_KEY);
 
             }
