@@ -47,7 +47,7 @@ public class AppController extends Application {
      * 이 위치에 나중에 최종 서버 주소+포트를 적어주면 됩니다.
      */
     //private static final String ENDPOINT = "http://127.0.0.1:8000";
-    private  static final String ENDPOINT = "https://apis.daum.net";
+    public  static final String ENDPOINT = "https://apis.daum.net";
 
     public static AppController getInstance(){return instance;}
 
@@ -119,6 +119,9 @@ public class AppController extends Application {
 
         RestAdapter adapter = builder.build();
         networkService = adapter.create(NetworkService.class);
+
+
+
 
     }
 

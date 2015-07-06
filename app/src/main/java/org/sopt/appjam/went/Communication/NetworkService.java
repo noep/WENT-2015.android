@@ -3,12 +3,20 @@ package org.sopt.appjam.went.Communication;
  * Created by NOEP on 15. 7. 1..
  */
 
+import org.sopt.appjam.went.Model.Photo;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit.Callback;
 import retrofit.http.GET;
+import retrofit.http.Multipart;
+import retrofit.http.POST;
+import retrofit.http.Part;
 import retrofit.http.Path;
 import retrofit.http.QueryMap;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 
 /**
@@ -79,5 +87,24 @@ public interface NetworkService {
      */
     @GET("/insert/users/{user-id}")
     void getDataAsync(@Path("user-id") long id, Callback<Object> callback);
+
+
+    /**
+     * serverpart
+     */
+    @GET("/photos")
+    void getPhotos(Callback<ArrayList<Photo>> callback);
+
+    @GET("/photos/{photo-id}")
+    void getPhotoByID(@Path("photo-id") String id, Callback<Photo> callback);
+
+    @Multipart
+    @POST("/photos")
+    void newPhoto(@Part("photo") TypedFile photo,
+                  @Part("title") TypedString title,
+                  @Part("content") TypedString content, Callback<Photo> callback);
+
+
+
 
 }
