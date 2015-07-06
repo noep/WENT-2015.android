@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.opengl.GLES20;
 import android.os.Bundle;
@@ -14,6 +15,8 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -23,16 +26,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.model.LatLng;
+
 import org.sopt.appjam.went.Communication.AppController;
 import org.sopt.appjam.went.Communication.NetworkService;
+import org.sopt.appjam.went.Model.Photo;
 import org.sopt.appjam.went.R;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 
 import dialog.Dialog_photo;
+import retrofit.Callback;
+import retrofit.RetrofitError;
+import retrofit.client.Response;
+import retrofit.mime.TypedFile;
+import retrofit.mime.TypedString;
 
 
 /**
@@ -114,13 +127,23 @@ public class AddActivity extends AppCompatActivity {
         title = (EditText) findViewById(R.id.editText_title);
         place = (TextView) findViewById(R.id.textView_place);
 
+        //for test
+        String where = new String("주소주소주소주소");
+        LatLng test = new LatLng(37.58528260494513, 126.98605588363266);
+        place.setText( String.valueOf(test.latitude) +" " + String.valueOf(test.longitude) );
+
+
+
+
     } //method end
     private void setViewListeners(){
 
         addbutton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"add",Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"add",Toast.LENGTH_SHORT).show();
+
+                newPhoto();
 
 
 
@@ -227,6 +250,67 @@ public class AddActivity extends AppCompatActivity {
 
 
 
+
+    public void newPhoto() {
+
+
+
+        Editable title = this.title.getText();
+
+        //Editable content = (Editable) (place.getText().toString());
+
+        String content = place.getText().toString();
+
+        Log.e(TAG,"err? "+ title.toString()+content.toString());
+
+
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content)) {
+
+            Toast.makeText(getApplicationContext(), "Please write more contents :O", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        try {
+
+            BitmapDrawable drawable = (BitmapDrawable) photo.getDrawable();
+            Bitmap bitmap = drawable.getBitmap();
+
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+            byte[] bytes = stream.toByteArray();
+
+            final File file = createTemporaryFile("image.jpg");
+            FileOutputStream writer = new FileOutputStream(file);
+
+            writer.write(bytes);
+
+            stream.close();
+            writer.close();
+
+
+            networkService.newPhoto(new TypedFile("image/jpeg", file), new TypedString(title.toString()), new TypedString(content.toString()),
+
+                    new Callback<Photo>() {
+
+                        @Override
+                        public void success(Photo photo, Response response) {
+
+                            Toast.makeText(getApplicationContext(), "Success to post a new photo :(", Toast.LENGTH_LONG).show();
+                           // adapter.push(photo);
+                            file.delete();
+                        }
+
+                        @Override
+                        public void failure(RetrofitError error) {
+
+                            Toast.makeText(getApplicationContext(), "Failed to post a new photo :(", Toast.LENGTH_LONG).show();
+                            file.delete();
+                        }
+                    });
+        }
+        catch (IOException e) { e.printStackTrace(); }
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 
@@ -255,17 +339,24 @@ public class AddActivity extends AppCompatActivity {
 
                 try  {
 
+
+
+
                     Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), IMAGE_HOLDER);
 
 
-                   //bitmap resize
-                   // if (bitmap.getWidth() > maxTextureSize[0] || bitmap.getHeight() > maxTextureSize[0]){
-                    if (bitmap.getHeight() > 4096){
+
+                    Log.e(TAG,"bitmap width"+String.valueOf(bitmap.getWidth()) );
+
+                    //bitmap resize
+                    // if (bitmap.getWidth() > maxTextureSize[0] || bitmap.getHeight() > maxTextureSize[0]){
+                    /**
+                    if (bitmap.getWidth() > 4096){
                         int resizedWidth = bitmap.getWidth()/2;
                         int resizedHeight = bitmap.getHeight()/2;
                         bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
                     }
-
+                    */
 
 
 

@@ -85,7 +85,7 @@ public interface NetworkService {
      * 하니코드를 좀 더 파봐서 붙여햐 하는데, 아직 POST  메소드를 정의하지 않았고, 형태가 어떤 지만 일단 확인을 한 상태입니다.
      *
      */
-    @GET("/insert/users/{user-id}")
+    @GET("/userlist/{user-id}")
     void getDataAsync(@Path("user-id") long id, Callback<Object> callback);
 
 

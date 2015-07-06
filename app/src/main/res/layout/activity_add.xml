@@ -9,7 +9,19 @@
         android:background="#2196F3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
-              <ImageButton
+
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:background="@null"
+
+            />
+
+
+        <ImageButton
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
@@ -17,6 +29,9 @@
                 android:src="@drawable/abc_btn_check_to_on_mtrl_000"
                 android:paddingRight="8dp"
                 android:background="@null"/>
+
+
+
 
 
 

@@ -9,6 +9,15 @@
         android:background="#2196F3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/abc_btn_check_to_on_mtrl_000"
+            android:background="@null"
+
+            />
     </android.support.v7.widget.Toolbar>
 
     <FrameLayout
