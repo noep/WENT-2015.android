@@ -249,8 +249,9 @@ public class AddActivity extends AppCompatActivity {
     }
 
 
-
-
+    /**
+     * Upload photo method
+     */
     public void newPhoto() {
 
 
@@ -348,20 +349,27 @@ public class AddActivity extends AppCompatActivity {
 
                     Log.e(TAG,"bitmap width"+String.valueOf(bitmap.getWidth()) );
 
-                    //bitmap resize
-                    // if (bitmap.getWidth() > maxTextureSize[0] || bitmap.getHeight() > maxTextureSize[0]){
                     /**
+                     * bitmap resize
+                     * if (bitmap.getWidth() > maxTextureSize[0] || bitmap.getHeight() > maxTextureSize[0]){
+                     *
+                     */
+
                     if (bitmap.getWidth() > 4096){
-                        int resizedWidth = bitmap.getWidth()/2;
-                        int resizedHeight = bitmap.getHeight()/2;
-                        bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
+                        int resizedWidth = bitmap.getWidth()/4;
+                        int resizedHeight = bitmap.getHeight()/4;
+                        Bitmap temp = bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
+
+                        photo.setImageBitmap(temp);
+
                     }
-                    */
+                    else {
+                        photo.setImageBitmap(bitmap);
+
+                    }
 
 
 
-
-                    photo.setImageBitmap(bitmap);
                 }
                 catch (Exception e)  { e.printStackTrace(); }
 
@@ -375,11 +383,23 @@ public class AddActivity extends AppCompatActivity {
                 try {
 
                     InputStream stream = getContentResolver().openInputStream(uri);
+                    Bitmap bitmap = BitmapFactory.decodeStream(stream);
+
+                    if(bitmap.getWidth()>4096){
+
+                        int resizedWidth = bitmap.getWidth()/4;
+                        int resizedHeight = bitmap.getHeight()/4;
+                        Bitmap temp = bitmap.createScaledBitmap(bitmap, resizedWidth, resizedHeight, false);
+
+                        photo.setImageBitmap(temp);
+
+                    }else {
 
 
+                        photo.setImageBitmap(bitmap);
 
-                    photo.setImageBitmap(BitmapFactory.decodeStream(stream));
-
+                    }
+                    //stream.reset();
                     stream.close();
                 }
                 catch (FileNotFoundException e) { e.printStackTrace(); }

@@ -85,8 +85,8 @@ public interface NetworkService {
      * 하니코드를 좀 더 파봐서 붙여햐 하는데, 아직 POST  메소드를 정의하지 않았고, 형태가 어떤 지만 일단 확인을 한 상태입니다.
      *
      */
-    @GET("/userlist/{user-id}")
-    void getDataAsync(@Path("user-id") long id, Callback<Object> callback);
+    @GET("/userlist/{user_id}")
+    void getDataAsync(@Path("user_id") String id, Callback<Object> callback);
 
 
     /**
@@ -95,11 +95,12 @@ public interface NetworkService {
     @GET("/photos")
     void getPhotos(Callback<ArrayList<Photo>> callback);
 
-    @GET("/photos/{photo-id}")
-    void getPhotoByID(@Path("photo-id") String id, Callback<Photo> callback);
+    @GET("/photos/{photo_id}")
+    void getPhotoByID(@Path("photo_id") String id, Callback<Photo> callback);
 
     @Multipart
-    @POST("/photos")
+    @POST("/motherphotos")
+
     void newPhoto(@Part("photo") TypedFile photo,
                   @Part("title") TypedString title,
                   @Part("content") TypedString content, Callback<Photo> callback);

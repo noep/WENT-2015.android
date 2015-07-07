@@ -46,8 +46,8 @@ public class AppController extends Application {
      *
      * 이 위치에 나중에 최종 서버 주소+포트를 적어주면 됩니다.
      */
-    //private static final String ENDPOINT = "http://127.0.0.1:8000";
-    public  static final String ENDPOINT = "https://apis.daum.net";
+    private static final String ENDPOINT = "http://192.168.0.17:3000";
+    //public  static final String ENDPOINT = "https://apis.daum.net";
 
     public static AppController getInstance(){return instance;}
 
@@ -109,7 +109,7 @@ public class AppController extends Application {
 
 
                 //네트웍 처리전 마지막 부분인데 나중에 밑의 메소드를 주석처리하면 됩니다.
-                request.addQueryParam("apikey", NetworkService.API_KEY);
+                //request.addQueryParam("apikey", NetworkService.API_KEY);
 
             }
         });
