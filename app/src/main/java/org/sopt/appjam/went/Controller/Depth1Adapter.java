@@ -1,6 +1,7 @@
 package org.sopt.appjam.went.Controller;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,7 +14,8 @@ import com.bumptech.glide.GlideBuilder;
 import com.bumptech.glide.load.engine.cache.DiskCache;
 import com.bumptech.glide.load.engine.cache.DiskLruCacheWrapper;
 
-import org.sopt.appjam.went.Model.ShopItem;
+import org.sopt.appjam.went.Communication.AppController;
+import org.sopt.appjam.went.Model.Depth1_item;
 import org.sopt.appjam.went.R;
 
 import java.io.File;
@@ -24,9 +26,14 @@ import java.util.ArrayList;
  */
 public class Depth1Adapter extends BaseAdapter {
 
-private ArrayList<ShopItem> arrayList_shopItem;
+private ArrayList<Depth1_item> arrayList_shopItem;
 private LayoutInflater layoutInflater;
 private Context context;
+
+
+    private static final String TAG = "Depth1Adapter";
+
+
 
         /**
          * Constructor
@@ -36,6 +43,10 @@ private Context context;
 
             this.context = context;
             layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+
+
+
 
 
             /**
@@ -75,9 +86,10 @@ private Context context;
          * Setter
          */
 
-        public void setSource(ArrayList<ShopItem> arrayList_shopItem) {
+        public void setSource(ArrayList<Depth1_item> arrayList_shopItem) {
 
             this.arrayList_shopItem = arrayList_shopItem;
+
             notifyDataSetChanged();
 
         }
@@ -103,7 +115,11 @@ private Context context;
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
+        public View getView(final int position, View convertView, ViewGroup parent) {
+
+
+
+
 
 
             ViewHolder viewHolder;
@@ -114,12 +130,20 @@ private Context context;
                 convertView = layoutInflater.inflate(R.layout.layout_item_card, parent , false) ;
 
 
-
                 viewHolder = new ViewHolder();
 
                 viewHolder.imageView_downImage = (ImageView) convertView.findViewById(R.id.imageView_downImage);
                 viewHolder.textView_title = (TextView) convertView.findViewById(R.id.textView_title);
                 viewHolder.textView_maxPrice = (TextView) convertView.findViewById(R.id.textView_maxPrice);
+
+
+
+                Typeface tf = Typeface.createFromAsset(convertView.getContext().getAssets(), "ygd340.ttf");
+                viewHolder.textView_title.setTypeface(tf);
+                viewHolder.textView_maxPrice.setTypeface(tf);
+
+
+
 
 
                 convertView.setTag(viewHolder);
@@ -129,18 +153,23 @@ private Context context;
 
             }
 
-            ShopItem item = arrayList_shopItem.get(position);
+            Depth1_item item = arrayList_shopItem.get(position);
 
 
             /**
              * 아래는 Glide를 이용하여 이미지를 불러오고 그에 따라 캐싱까지해주는 한 줄짜리 코드입니다.
+             * http:111.111.111.111:3000/mothercard/{mother_id}
              */
             Glide.with(context)
-                    .load(item.image_url)
+                    .load(AppController.getEndpoint().concat("/mothercard/image/").concat(String.valueOf(item.motherid)))
                     .into(viewHolder.imageView_downImage);
 
+
+
             viewHolder.textView_title.setText(item.title);
-            viewHolder.textView_maxPrice.setText("" + item.price_max);
+
+           //안이뻐서 빼놓음
+            //viewHolder.textView_maxPrice.setText(item.mintime+" "+item.maxtime);
 
 
             return convertView;

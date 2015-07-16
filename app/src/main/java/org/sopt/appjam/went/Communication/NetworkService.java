@@ -3,12 +3,18 @@ package org.sopt.appjam.went.Communication;
  * Created by NOEP on 15. 7. 1..
  */
 
+import org.sopt.appjam.went.Model.Depth1_item;
+import org.sopt.appjam.went.Model.Depth2_item;
 import org.sopt.appjam.went.Model.Photo;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Objects;
 
 import retrofit.Callback;
+import retrofit.http.DELETE;
 import retrofit.http.GET;
 import retrofit.http.Multipart;
 import retrofit.http.POST;
@@ -85,8 +91,39 @@ public interface NetworkService {
      * 하니코드를 좀 더 파봐서 붙여햐 하는데, 아직 POST  메소드를 정의하지 않았고, 형태가 어떤 지만 일단 확인을 한 상태입니다.
      *
      */
-    @GET("/userlist/{user_id}")
+
+    /**
+     * Depth1 GET
+     * @param id
+     * @param callback
+     */
+    @GET("/mothercard/{user_id}")
     void getDataAsync(@Path("user_id") String id, Callback<Object> callback);
+
+
+
+
+
+    @GET("/mothercard/{user_id}")
+    void getDataAsyncForTest(@Path("user_id") String id, Callback<ArrayList<Depth1_item>> callback);
+
+
+
+
+
+
+    /**
+     * Depth2 post
+     * @param userid
+     * @param motherid
+     * @param callback
+     */
+
+
+    @GET("/secondcard/{user_id}/{mother_id}")
+    void getDataAsync(@Path("user_id") String userid,
+                      @Path("mother_id") int motherid, Callback<ArrayList<Depth2_item>> callback);
+
 
 
     /**
@@ -98,12 +135,70 @@ public interface NetworkService {
     @GET("/photos/{photo_id}")
     void getPhotoByID(@Path("photo_id") String id, Callback<Photo> callback);
 
-    @Multipart
-    @POST("/motherphotos")
 
+
+    @Multipart
+    @POST("/mothercard")
     void newPhoto(@Part("photo") TypedFile photo,
                   @Part("title") TypedString title,
                   @Part("content") TypedString content, Callback<Photo> callback);
+
+
+    /**
+     * Depth1 ADD
+     * @param photo
+     * @param title
+     * @param address
+     * @param lon
+     * @param lat
+     * @param callback
+     */
+    @Multipart
+    @POST("/mothercard")
+    void newPhoto(@Part("photo") TypedFile photo,
+                  @Part("title") TypedString title,
+                  @Part("address") TypedString address,
+                  @Part("lon") Double lon,
+                  @Part("lat") Double lat,
+                  @Part("user_id") TypedString user_id,
+
+                  Callback<Photo> callback);
+
+
+    /**
+     * Depth2 ADD
+     * @param photo
+     * @param title
+     * @param address
+     * @param lon
+     * @param lat
+     * @param callback
+     */
+    @Multipart
+    @POST("/secondcard")
+    void newPhoto(@Part("photo") TypedFile photo,
+                  @Part("title") TypedString title,
+                  @Part("address") TypedString address,
+                  @Part("lon") Double lon,
+                  @Part("lat") Double lat,
+                  @Part("content") TypedString content,
+                  @Part("time") TypedString time,
+                  @Part("mother_id") TypedString mother_id,
+                  @Part("user_id") TypedString user_id,
+
+                  Callback<Object> callback);
+
+
+
+
+
+    @DELETE("/mothercard/{mother_id}")
+    void DeleteDepth1Card(@Path("mother_id") int mother_id, Callback<Object> callback);
+
+    @DELETE("/secondcard/{second_id}")
+    void DeleteDepth2Card(@Path("mother_id") int second_id, Callback<Object> callback);
+
+
 
 
 

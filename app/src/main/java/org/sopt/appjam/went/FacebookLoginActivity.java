@@ -19,7 +19,7 @@ import org.sopt.appjam.went.Depth1.MainActivity;
 
 
 /**
-Ã³À½¿¡ ·Î±×ÀÎ À§µå ÆäÀÌ½ººÏ ¹öÆ°À» ¶ç¿öÁÖ´Â ºÎºÐÀÔ´Ï´Ù. Åë½Å ºÎºÐÀº ¿©±â¼­ º¸½Ç¸¸ÇÑ °Ô º°·Î ¾ø½À´Ï´Ù
+ì²˜ìŒì— ë¡œê·¸ì¸ ìœ„ë“œ íŽ˜ì´ìŠ¤ë¶ ë²„íŠ¼ì„ ë„ì›Œì£¼ëŠ” ë¶€ë¶„ìž…ë‹ˆë‹¤. í†µì‹  ë¶€ë¶„ì€ ì—¬ê¸°ì„œ ë³´ì‹¤ë§Œí•œ ê²Œ ë³„ë¡œ ì—†ìŠµë‹ˆë‹¤
 
 
 
@@ -63,8 +63,6 @@ public class FacebookLoginActivity extends AppCompatActivity {
 
             }
         });
-
-
 
 
 

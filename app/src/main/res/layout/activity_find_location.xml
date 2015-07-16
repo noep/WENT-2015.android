@@ -1,0 +1,49 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="org.sopt.appjam.went.FindLocationActivity">
+
+    <fragment
+        android:id="@+id/map"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        class="com.google.android.gms.maps.MapFragment" />
+
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#29b7aa"
+        android:alpha="84"
+        android:weightSum="10">
+
+        <EditText
+            android:id="@+id/editText_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:background="@null"
+            android:hint="              [Touch and Put a place]"
+            android:textColor="#FFFFFF"
+            android:textColorHint="#FFFFFF"
+            android:layout_weight="8"/>
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="FIND"
+            android:background="@null"
+            android:textColor="#000000"
+            android:layout_weight="2"/>
+
+
+
+    </LinearLayout>
+
+
+
+</RelativeLayout>

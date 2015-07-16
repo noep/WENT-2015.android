@@ -1,0 +1,155 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:minHeight="?attr/actionBarSize"
+            android:background="#D629b7aa"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageButton
+                android:layout_width="57dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:layout_gravity="right"
+                android:id="@+id/add_button"
+                android:src="@mipmap/went_mainplus_icon_complete"
+                android:paddingRight="8dp"
+                android:background="@null"/>
+
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/went_main_logo"
+                android:background="@null"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
+
+
+        </android.support.v7.widget.Toolbar>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@mipmap/went_mainplus_icon_complete_bar"
+            android:background="@null"
+            android:layout_marginEnd="56dp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true" />
+    </RelativeLayout>
+
+
+    <RelativeLayout
+        android:layout_below="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view"
+            android:layout_gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="700dp"
+            android:layout_margin="4dp"
+            card_view:cardCornerRadius="4dp" >
+
+
+            <RelativeLayout
+                android:orientation="vertical"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+
+                <ImageView
+                    android:id="@+id/ImageView_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+
+                    android:scaleType="fitXY"
+                    android:layout_marginTop="6dp"/>
+
+
+                <EditText
+                    android:id="@+id/editText_title"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+
+                    android:hint="Sub Title"
+                    android:textSize="20dp"
+
+                    android:gravity="center"
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/ImageView_pic"
+                    android:layout_centerHorizontal="true" />
+
+
+                <Button
+                    android:id="@+id/button_place"
+                    android:layout_width="290dp"
+                    android:layout_height="46dp"
+
+                    android:hint="Pick your Place"
+                    android:textColor="#A0A0A0"
+                    android:textSize="17dp"
+                    android:drawableLeft="@mipmap/went_plus_button_icon_place"
+
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/editText_title"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"/>
+
+                <Button
+                    android:id="@+id/button_time"
+                    android:layout_width="290dp"
+                    android:layout_height="46dp"
+                    android:drawableLeft="@mipmap/went_plus_button_icon_moment"
+
+                    android:hint="Pick your Time"
+                    android:textColor="#A0A0A0"
+                    android:textSize="17dp"
+
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/button_place"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="6dp"/>
+
+                <EditText
+                    android:id="@+id/editText_contents"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+
+                    android:hint="Write your Journey"
+                    android:textSize="20dp"
+                    android:gravity="center"
+
+                    android:layout_gravity="center"
+                    android:layout_below="@+id/button_time"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"/>
+
+
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
+    </RelativeLayout>
+
+
+
+
+
+
+
+</LinearLayout>

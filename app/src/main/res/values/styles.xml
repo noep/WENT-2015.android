@@ -1,0 +1,23 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+
+        <item name="colorPrimary">#29b7aa</item>
+
+
+
+        <item name="android:actionOverflowButtonStyle">@style/MyActionButtonOverflow</item>
+
+
+    </style>
+
+    <style name="MyActionButtonOverflow" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:src">@mipmap/went_main_button_more</item>
+    </style>
+
+
+
+
+</resources>

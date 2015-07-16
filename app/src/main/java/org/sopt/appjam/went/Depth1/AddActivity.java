@@ -1,15 +1,15 @@
 package org.sopt.appjam.went.Depth1;
 
 import android.app.Activity;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.AssetFileDescriptor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.NetworkInfo;
 import android.net.Uri;
-import android.opengl.GLES20;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -26,10 +26,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.maps.model.LatLng;
 
 import org.sopt.appjam.went.Communication.AppController;
 import org.sopt.appjam.went.Communication.NetworkService;
+import org.sopt.appjam.went.FindLocationActivity;
 import org.sopt.appjam.went.Model.Photo;
 import org.sopt.appjam.went.R;
 
@@ -41,6 +43,7 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import dialog.Dialog_photo;
+import dialog.Dialog_place;
 import retrofit.Callback;
 import retrofit.RetrofitError;
 import retrofit.client.Response;
@@ -59,16 +62,22 @@ import retrofit.mime.TypedString;
 public class AddActivity extends AppCompatActivity {
 
     public static final String TAG = "AddActivity";
+    static final int REQUEST_CODE_PLACE = 5;
 
 
+    private ImageButton addbutton;
+    private ImageView photo;
+    private EditText title;
+    private Button place;
 
+    LatLng latLng;
 
     NetworkService networkService;
-    Dialog_photo photoDialog ;
-
-
-
+    Dialog_photo photoDialog;
+    //Dialog_place placeDialog;
+    String facebookinfo;
     Uri IMAGE_HOLDER;
+
 
 
     @Override
@@ -76,23 +85,21 @@ public class AddActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add);
 
+        //getIntent().getExtras().getString("facebookid", facebookinfo);
+        Intent intent = getIntent();
+        String temp = (String) intent.getSerializableExtra("facebookid");
+        facebookinfo = temp;
 
+        Log.e(TAG,"facebookinfo+ "+facebookinfo);
         setTitle("Write main card");
-
 
         //network setting
         //Network Connection
         networkService = AppController.getInstance().getNetworkService();
 
-
-
-
         setToolbar();
-
         setView();
         setViewListeners();
-
-
         setDialogs();
 
 
@@ -107,7 +114,7 @@ public class AddActivity extends AppCompatActivity {
 
     private void setToolbar() {
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setNavigationIcon(R.mipmap.ic_list);
+        toolbar.setNavigationIcon(R.mipmap.went_three_button_back);
         toolbar.setTitleTextColor(Color.WHITE);
 
 
@@ -115,23 +122,17 @@ public class AddActivity extends AppCompatActivity {
 
 
 
-    private ImageButton addbutton;
-    private ImageView photo;
-    private EditText title;
-    private TextView place;
-
     private void setView(){
 
         addbutton = (ImageButton) findViewById(R.id.add_button);
         photo = (ImageView) findViewById(R.id.ImageView_pic);
         title = (EditText) findViewById(R.id.editText_title);
-        place = (TextView) findViewById(R.id.textView_place);
+        place = (Button) findViewById(R.id.Button_place);
 
+
+        String color_button = "#BEE9E5";
+        place.setBackgroundColor(Color.parseColor(color_button));
         //for test
-        String where = new String("주소주소주소주소");
-        LatLng test = new LatLng(37.58528260494513, 126.98605588363266);
-        place.setText( String.valueOf(test.latitude) +" " + String.valueOf(test.longitude) );
-
 
 
 
@@ -167,7 +168,13 @@ public class AddActivity extends AppCompatActivity {
         place.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(),"placepick",Toast.LENGTH_SHORT).show();
+               // Intent intent = new Intent(getApplicationContext(), FindLocationActivity.class);
+               // startActivity(intent);
+                //placeDialog.show(getFragmentManager(),Dialog_place.class.getName());
+                Intent intent = new Intent(getApplicationContext(), FindLocationActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_PLACE);
+
+
             }
         });
 
@@ -188,6 +195,8 @@ public class AddActivity extends AppCompatActivity {
 
 
         photoDialog = new Dialog_photo();
+       // placeDialog = new Dialog_place();
+
         photoDialog.setOnClickListener(new DialogInterface.OnClickListener() {
 
             @Override
@@ -227,13 +236,42 @@ public class AddActivity extends AppCompatActivity {
             }
         });
 
+        /*
+        placeDialog.setOnClickListener(new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+
+                switch (i) {
+
+                    case DialogInterface.BUTTON_POSITIVE : {
+                        //search
+
+                        Intent intent = new Intent(getApplicationContext(), FindLocationActivity.class);
+                        startActivityForResult(intent, REQUEST_CODE_PLACE);
+
+                        break;
+                    }
+
+                    case DialogInterface.BUTTON_NEUTRAL : {
+                        //by gps
+
+                        break;
+                    }
+
+                    case DialogInterface.BUTTON_NEGATIVE : {
+                        //cancel
 
 
+                        break;
 
 
+                    }
+                }
+            }
 
+        });
 
-
+        */
 
     }
 
@@ -260,12 +298,19 @@ public class AddActivity extends AppCompatActivity {
 
         //Editable content = (Editable) (place.getText().toString());
 
-        String content = place.getText().toString();
 
-        Log.e(TAG,"err? "+ title.toString()+content.toString());
+        //for test
+       // LatLng test = new LatLng(37.58528260494513, 126.98605588363266);
 
 
-        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(content)) {
+
+
+
+
+        Log.e(TAG,"err? "+ title.toString()+place.toString());
+
+
+        if (TextUtils.isEmpty(title) || TextUtils.isEmpty(place.toString())) {
 
             Toast.makeText(getApplicationContext(), "Please write more contents :O", Toast.LENGTH_LONG).show();
             return;
@@ -289,16 +334,19 @@ public class AddActivity extends AppCompatActivity {
             writer.close();
 
 
-            networkService.newPhoto(new TypedFile("image/jpeg", file), new TypedString(title.toString()), new TypedString(content.toString()),
-
+            //networkService.newPhoto(new TypedFile("image/jpeg", file), new TypedString(title.toString()), new TypedString(address.toString()),
+            networkService.newPhoto(new TypedFile("image/jpeg",file), new TypedString(title.toString()), new TypedString(place.getText().toString()),
+                                    latLng.longitude, latLng.latitude, new TypedString(facebookinfo.toString()),
                     new Callback<Photo>() {
 
                         @Override
                         public void success(Photo photo, Response response) {
 
-                            Toast.makeText(getApplicationContext(), "Success to post a new photo :(", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Success to post a new photo :)", Toast.LENGTH_LONG).show();
                            // adapter.push(photo);
                             file.delete();
+                            finish();
+
                         }
 
                         @Override
@@ -317,6 +365,10 @@ public class AddActivity extends AppCompatActivity {
 
 
 
+
+
+
+
         //int[] maxTextureSize = new int[1];
         //GLES20.glGetIntegerv(GLES20.GL_MAX_TEXTURE_SIZE, maxTextureSize, 0);
 
@@ -332,6 +384,10 @@ public class AddActivity extends AppCompatActivity {
             return;
         }
 
+
+
+
+
         switch (requestCode) {
 
             case Dialog_photo.REQUEST_CODE_CAPTURE : {
@@ -340,14 +396,22 @@ public class AddActivity extends AppCompatActivity {
 
                 try  {
 
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 4;
+
+                    AssetFileDescriptor fileDescriptor =null;
+                    fileDescriptor = getContentResolver().openAssetFileDescriptor(IMAGE_HOLDER,"r");
+
+                    Bitmap bitmap
+                            = BitmapFactory.decodeFileDescriptor(
+                            fileDescriptor.getFileDescriptor(), null, options);
+
+
+                    //Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), IMAGE_HOLDER);
 
 
 
-                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), IMAGE_HOLDER);
-
-
-
-                    Log.e(TAG,"bitmap width"+String.valueOf(bitmap.getWidth()) );
+                    Log.e(TAG, "bitmap width" + String.valueOf(bitmap.getWidth()));
 
                     /**
                      * bitmap resize
@@ -383,7 +447,11 @@ public class AddActivity extends AppCompatActivity {
                 try {
 
                     InputStream stream = getContentResolver().openInputStream(uri);
-                    Bitmap bitmap = BitmapFactory.decodeStream(stream);
+
+                    BitmapFactory.Options options = new BitmapFactory.Options();
+                    options.inSampleSize = 2;
+
+                    Bitmap bitmap = BitmapFactory.decodeStream(stream,null,options);
 
                     if(bitmap.getWidth()>4096){
 
@@ -408,6 +476,23 @@ public class AddActivity extends AppCompatActivity {
 
                 break;
             }
+
+            case REQUEST_CODE_PLACE : {
+
+                double lat, lon;
+
+                lat = (double) data.getSerializableExtra("latitude");
+                lon = (double) data.getSerializableExtra("longitude");
+
+                latLng = new LatLng(lat, lon);
+
+
+                place.setText("lat/lng : " + latLng.latitude +"/"+ latLng.longitude);
+
+            }
+
+
+
         }
     }
 

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:orientation="vertical" android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:minHeight="?attr/actionBarSize"
+        android:background="#D629b7aa"
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@mipmap/went_main_logo"
+            android:background="@null"/>
+    </android.support.v7.widget.Toolbar>
+
+
+    <ImageView
+        android:id="@+id/imageview_depth3image"
+        android:layout_width="match_parent"
+        android:layout_height="310dp"
+
+        android:layout_gravity="center"
+        android:scaleType="centerCrop"
+
+        android:background="@null"
+        android:layout_below="@+id/toolbar"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:id="@+id/imageview_text"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:src="@mipmap/went_three_text_bar"
+        android:layout_below="@+id/imageview_depth3image"
+        android:paddingTop="4dp"
+        android:layout_marginTop="13dp"
+        android:layout_marginLeft="25dp"/>
+
+    <TextView
+        android:id="@+id/textview_depth3_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_alignTop="@+id/imageview_text"
+        android:layout_toRightOf="@+id/imageview_text"
+        android:layout_toEndOf="@+id/imageview_text"
+
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="2dp"
+        android:textColor="#000000"
+        android:textSize="20dp"
+        android:text="Title" />
+
+<TextView
+    android:id="@+id/textview_depth3_Date"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+
+    android:layout_below="@+id/textview_depth3_title"
+    android:layout_toRightOf="@+id/imageview_text"
+
+    android:layout_marginLeft="10dp"
+    android:layout_marginTop="10dp"
+    android:textColor="#000000"
+    android:text="YYYY.MM.DD"
+    android:textSize="13dp"/>
+
+<TextView
+    android:id="@+id/textview_depth3_text"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+
+    android:layout_below="@+id/textview_depth3_Date"
+
+    android:layout_marginLeft="38dp"
+    android:layout_marginRight="30dp"
+    android:layout_marginTop="15dp"
+    android:textColor="#000000"
+    android:text="http://muzesong.tistory.com/entry/%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%95%88%EB%93%9C%EB%A1%9C%EC%9D%B4%EB%93%9C-TextView-%EC%97%90-Font-%EB%B0%94%EA%BE%B8%EA%B8%B0"
+    android:textSize="18dp" />
+
+
+</RelativeLayout>
