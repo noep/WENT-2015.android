@@ -53,19 +53,12 @@ import retrofit.client.Response;
  */
 
 
-
-
-
-
-
-
 public class MainActivity extends AppCompatActivity  implements
-        UserInformationFragment.OnFragmentInteractionListener,
-        OnFacebookIDLoadListener{
+        UserInformationFragment.OnFragmentInteractionListener
+//        OnFacebookIDLoadListener //DEPRECATED
+{
 
 
-    //for facebook info
-    CallbackManager callbackManager;
     private static String TAG = "MainActivity";
 
     //fab divide
@@ -73,17 +66,16 @@ public class MainActivity extends AppCompatActivity  implements
 
     private static MapFragment mapFragment;
     private static FirstDepthViewFragment viewFragment;
-    private static UserInformationFragment infoFragment;
-
     private static FloatingActionButton fab;
-
-
-
-
-
-    String facebookinfo;
-
     private BackPressCloseHandler backPressCloseHandler;
+
+
+
+
+
+//    //for facebook info
+    CallbackManager callbackManager;
+    String facebookinfo;
 
 
 
@@ -102,7 +94,7 @@ public class MainActivity extends AppCompatActivity  implements
         setContentView(R.layout.activity_main);
 
 
-        Log.e(TAG,"onCreate");
+        Log.e(TAG, "onCreate");
         //Network Connection
         networkService = AppController.getInstance().getNetworkService();
 
@@ -111,8 +103,7 @@ public class MainActivity extends AppCompatActivity  implements
         setFAB();
 
 
-        FacebookSdk.sdkInitialize(getApplicationContext());
-        callbackManager = CallbackManager.Factory.create();
+
 
         getFacebookInfo();
 
@@ -126,23 +117,11 @@ public class MainActivity extends AppCompatActivity  implements
         viewFragment = FirstDepthViewFragment.newInstance();
 
 
-        //infoFragment = UserInformationFragment.newInstance("str1","str2");
 
         // if insert viweFragment instead of mapFragment change fragment
         getFragmentManager().beginTransaction().replace(R.id.fragment_main, viewFragment).commit();
 
 
-/**
-        //Need to Communication get List of Depth1 informations
-        new Handler().postDelayed(new Runnable() {// 1 초 후에 실행
-            @Override
-            public void run() {
-                // 실행할 동작 코딩
-                //getFromServer();
-
-            }
-        }, 1000);
-            */
     }
 
     @Override
@@ -156,10 +135,9 @@ public class MainActivity extends AppCompatActivity  implements
             finish();
         }
 
-        synchronized (MainActivity.class) {
-
-            getFromServer();
-        }
+//        synchronized (MainActivity.class) {
+//            getFromServer();
+//        }
     }
 
 
@@ -277,10 +255,12 @@ public class MainActivity extends AppCompatActivity  implements
 
     private void getFacebookInfo(){
 
-        Thread thread = new Thread(new Runnable() {
 
-            @Override
-            public void run() {
+        FacebookSdk.sdkInitialize(getApplicationContext());
+        callbackManager = CallbackManager.Factory.create();
+//        Thread thread = new Thread(new Runnable() {
+//            @Override
+//            public void run() {
 
                 Bundle parameter = new Bundle();
                 parameter.putString("field", "id,name,link");
@@ -288,7 +268,6 @@ public class MainActivity extends AppCompatActivity  implements
                 GraphRequest request = GraphRequest.newMeRequest(AccessToken.getCurrentAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
                     @Override
                     public void onCompleted(JSONObject jsonObject, GraphResponse graphResponse) {
-
                 /*
                 only need facebook id
                  */         try {
@@ -298,26 +277,21 @@ public class MainActivity extends AppCompatActivity  implements
                             //facebook_name = jsonObject.optString("name");
                             //facebook_link = jsonObject.optString("link");
                             // + " " + facebook_name + " " + facebook_link;
-                            MainActivity.this.onFacebookIDLoaded(facebook_id);
-
-
-                        }catch (Exception e){
-
+//                            MainActivity.this.onFacebookIDLoaded(facebook_id);
+                            }catch (Exception e){
                         }
-
-
-
                     }
                 });
-
                 request.setParameters(parameter);
                 request.executeAndWait();
-            }
-        });
-
-        thread.start();
+//            }
+//        });
+//        thread.start();
 
     } // method end
+
+
+
 
     @Override
     public void onBackPressed() {
@@ -377,9 +351,6 @@ public class MainActivity extends AppCompatActivity  implements
         아래에 정의되어 있는 메소드는 인터페이스 NetworkService에 기술되어 있습니다.
          retrofit 문서를 확인해보시면 알겠지만, 비동기처리 형태는 메소드에 자신이 필요한 파라미터+콜백함수를 넣어주는 구조입니다.
          */
-        //networkService.getDataAsync(parameters, new Callback<Object>() {
-
-
         networkService.getDataAsyncForTest(facebookinfo, new Callback<ArrayList<Depth1_item>>() {
 
             @Override
@@ -389,14 +360,10 @@ public class MainActivity extends AppCompatActivity  implements
                 mapFragment.setResult(list);
                 Log.e(TAG,"successs " + list.get(0).toString());
 
-
-
-
             }
 
             @Override
             public void failure(RetrofitError error) {
-
                 Log.e(TAG,"Connection Fail ");
                 //Toast.makeText(getApplicationContext(), "ERROR ", Toast.LENGTH_SHORT).show();
             }
@@ -411,14 +378,15 @@ public class MainActivity extends AppCompatActivity  implements
     }
 
 
-    @Override
-    public void onFacebookIDLoaded(String facebook_id) {
-
-        this.facebookinfo = facebook_id;
-
-        synchronized (MainActivity.class) {
-
-            getFromServer();
-        }
-    }
+//DEPRECATED
+//    @Override
+//    public void onFacebookIDLoaded(String facebook_id) {
+//
+//        this.facebookinfo = facebook_id;
+//
+//        synchronized (MainActivity.class) {
+//
+//            getFromServer();
+//        }
+//    }
 }
