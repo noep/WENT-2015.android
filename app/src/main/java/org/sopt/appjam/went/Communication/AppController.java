@@ -46,7 +46,8 @@ public class AppController extends Application {
      *
      * 이 위치에 나중에 최종 서버 주소+포트를 적어주면 됩니다.
      */
-    private static final String ENDPOINT = "http://52.24.246.247:3000";
+    private static final String ENDPOINT = "http://112.158.5.26:3000";
+//    private static final String ENDPOINT = "http://52.24.246.247:3000";
     //public  static final String ENDPOINT = "https://apis.daum.net";
 
     public static AppController getInstance(){return instance;}
